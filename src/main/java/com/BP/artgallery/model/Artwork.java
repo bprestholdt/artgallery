@@ -2,6 +2,9 @@ package com.BP.artgallery.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 
 //Artwork entity
 //table in database, each entry will be a row with fields as columns
@@ -17,8 +20,11 @@ public class Artwork {
 
     private String title;
     private String description;
-    private LocalDate uploadDate;
-    private String imageFilename;
+
+    private LocalDate localDate;
+
+    @OneToMany(mappedBy = "artwork", cascade = CascadeType.ALL)
+    private List<GalleryImage> galleryImages = new ArrayList<>();
 
     //only need default constructor, as all Artwork objs will be modified by users, not manually in code
     public Artwork () {
@@ -40,14 +46,6 @@ public class Artwork {
         this.title = title;
     }
 
-    public LocalDate getUploadDate() {
-        return uploadDate;
-    }
-
-    public void setUploadDate(LocalDate uploadDate) {
-        this.uploadDate = uploadDate;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -55,12 +53,20 @@ public class Artwork {
     public void setDescription(String description) {
         this.description = description;
     }
-    public String getImageFilename() {
-        return imageFilename;
+
+    public List<GalleryImage> getGalleryImages() {
+        return galleryImages;
     }
 
-    public void setImageFilename(String imageFilename) {
-        this.imageFilename = imageFilename;
+    public void setGalleryImages(List<GalleryImage> galleryImages) {
+        this.galleryImages = galleryImages;
+    }
+    public LocalDate getUploadDate() {
+        return localDate;
+    }
+
+    public void setUploadDate(LocalDate localDate) {
+        this.localDate = localDate;
     }
 
 
